@@ -5,9 +5,23 @@ orbs:
   # Declare a dependency on the welcome-orb
   welcome: circleci/welcome-orb@0.4.1
 # Orchestrate or schedule a set of jobs
+
+jobs:
+  elasticsearch:
+    machine: true
+    steps:
+      - checkout
+      - run: |
+          set -x
+          docker-compose  -f docker-compose.yml -f extensions/metricbeat/metricbeat-compose.yml build
+          docker-compose -f docker-compose.yml -f extensions/metricbeat/metricbeat-compose.yml up
+
 workflows:
   # Name the workflow "welcome"
   welcome:
     # Run the welcome/run job in its own container
     jobs:
       - welcome/run
+  elasticsearch:
+    jobs:
+      - elasticsearch
