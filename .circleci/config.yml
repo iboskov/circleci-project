@@ -11,8 +11,10 @@ jobs:
     machine: true
     steps:
       - checkout
+      - command: |
+          mkdir data
+          chmod 777 data
       - run: |
-          set -x
           docker-compose  -f docker-compose.yml -f extensions/metricbeat/metricbeat-compose.yml build
           docker-compose -f docker-compose.yml -f extensions/metricbeat/metricbeat-compose.yml up
 
