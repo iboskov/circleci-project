@@ -1,0 +1,79 @@
+{
+    "order" : 0,
+    "version" : 3,
+    "index_patterns" : [
+      "metricbeat-*"
+    ],
+    "settings" : {
+      "index" : {
+        "lifecycle" : {
+          "name" : "metricbeat",
+          "rollover_alias" : "metricbeat"
+        },
+        "mapping" : {
+          "total_fields" : {
+            "limit" : "5000"
+          },
+          "ignore_malformed" : true
+        },
+        "refresh_interval" : "5s",
+        "number_of_shards" : "1"
+      }
+    },
+    "mappings" : {
+      "dynamic_templates" : [
+        {
+          "message_field" : {
+            "path_match" : "message",
+            "mapping" : {
+              "norms" : false,
+              "type" : "text"
+            },
+            "match_mapping_type" : "string"
+          }
+        },
+        {
+          "string_fields" : {
+            "mapping" : {
+              "norms" : false,
+              "fields" : {
+                "keyword" : {
+                  "ignore_above" : 256,
+                  "type" : "keyword"
+                }
+              },
+              "type" : "text"
+            },
+            "match_mapping_type" : "string",
+            "match" : "*"
+          }
+        }
+      ],
+      "properties" : {
+        "geoip" : {
+          "dynamic" : true,
+          "properties" : {
+            "latitude" : {
+              "type" : "half_float"
+            },
+            "ip" : {
+              "type" : "ip"
+            },
+            "location" : {
+              "type" : "geo_point"
+            },
+            "longitude" : {
+              "type" : "half_float"
+            }
+          }
+        },
+        "@timestamp" : {
+          "type" : "date"
+        },
+        "version" : {
+          "type" : "keyword"
+        }
+      }
+    },
+    "aliases" : { }
+  }
