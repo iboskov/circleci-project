@@ -20,14 +20,15 @@ jobs:
           name: build and run the stack
           command: |
             docker-compose  -f docker-compose.yml -f extensions/metricbeat/metricbeat-compose.yml build
-            docker-compose -f docker-compose.yml -f extensions/metricbeat/metricbeat-compose.yml up
+            docker-compose -f docker-compose.yml -f extensions/metricbeat/metricbeat-compose.yml up -d
 
 workflows:
   # Name the workflow "welcome"
-  welcome:
+  #welcome:
     # Run the welcome/run job in its own container
-    jobs:
-      - welcome/run
+    #jobs:
+      #- welcome/run
   elasticsearch:
     jobs:
+      - welcome/run
       - elasticsearch
