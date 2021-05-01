@@ -11,12 +11,16 @@ jobs:
     machine: true
     steps:
       - checkout
-      - command: |
-          mkdir data
-          chmod 777 data
-      - run: |
-          docker-compose  -f docker-compose.yml -f extensions/metricbeat/metricbeat-compose.yml build
-          docker-compose -f docker-compose.yml -f extensions/metricbeat/metricbeat-compose.yml up
+      - run:
+          name: Create data dir and add permissions
+          command: |
+            mkdir data
+            chmod 777 data
+      - run:
+          name: build and run the stack
+          command: |
+            docker-compose  -f docker-compose.yml -f extensions/metricbeat/metricbeat-compose.yml build
+            docker-compose -f docker-compose.yml -f extensions/metricbeat/metricbeat-compose.yml up
 
 workflows:
   # Name the workflow "welcome"
