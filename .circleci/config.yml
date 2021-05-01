@@ -14,8 +14,8 @@ jobs:
       - run:
           name: Create data dir and add permissions
           command: |
-            mkdir data
-            chmod 777 data
+            mkdir elasticsearch/data
+            chmod 777 elasticsearch/data
       - run:
           name: build and run the stack
           command: |
