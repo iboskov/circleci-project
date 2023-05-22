@@ -4,7 +4,7 @@ version: 2.1
 # Declare a dependency on the welcome-orb
 # Orchestrate or schedule a set of jobs
 orbs:
-  aws-s3: circleci/aws-s3@2.0.0
+  aws-s3: circleci/aws-s3@3.1.1
 
 
 jobs:
